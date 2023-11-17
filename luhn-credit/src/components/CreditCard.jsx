@@ -8,12 +8,7 @@ const CreditCard =()=>{
   //to check if it is valid  create one more useState
   const[isValid, setIsValid] = useState(null);
 
-  //handle submit
- const handleSubmit = (event) =>{
-    event.preventDefault();
-    console.log('form')
-    console.log('Form Date:' ,cardNumber);
-
+  
     // to do validation
     const calc = digit => (digit*2 < 10) ? digit*2 : digit*2-9;
  const isValidNumber = card => {
@@ -23,6 +18,13 @@ const CreditCard =()=>{
   )
 
  }
+
+  //handle submit
+ const handleSubmit = (event) =>{
+    event.preventDefault();
+    console.log('form')
+    console.log('Form cardNumber:' ,cardNumber);
+
   setIsValid(isValidNumber(cardNumber));
 }
 //handle chaqnge
@@ -32,21 +34,24 @@ const CreditCard =()=>{
   
  //useEffect
  useEffect(() => {
-    if(cardNumber.length > 0 && cardNumber.length > 11){
+    console.log(cardNumber.length)
+    if(cardNumber.length > 0 ){
         setIsValid(isValidNumber(cardNumber))
 //  } else {setIsValid(null);}},[cardNumber]);
-} else {setIsValid(false);}},[cardNumber]);
+} else {setIsValid(null);}},[cardNumber]);
+
  return (
     <div>
          <form onSubmit ={handleSubmit}>
       <label>
         Credit Card Number 
         <input
-          type=" text"
+          type="text"
           value={cardNumber}
+          maxLength={16}
           onChange={(e) => setCardNumber(e.target.value)}
         />
-         <input type="submit" value="Submit Form" /> 
+         {/* <input type="submit" value="Submit Form" />  */}
       </label>
       </form>
       {isValid !== null && (
